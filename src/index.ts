@@ -8,7 +8,9 @@ import cors from "cors";
 
 const app = express();
 app.use(express.json()); // Middleware to parse JSON request bodies.
-app.use(cors()); // Middleware to allow cross-origin requests.
+app.use(cors({
+    origin:"https://second-brain-frontend-two.vercel.app"
+})); // Middleware to allow cross-origin requests.
 
 // Route 1: User Signup
 app.post("/api/v1/signup", async (req, res) => {
