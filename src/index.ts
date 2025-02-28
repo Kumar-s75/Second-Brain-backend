@@ -1,16 +1,26 @@
 import express from "express";
+import { createServer } from "http";
 import { random } from "./utils";
 import jwt from "jsonwebtoken";
 import { ContentModel, LinkModel, UserModel } from "./db";
 import { JWT_SECRET } from "./config";
 import { userMiddleware } from "./middleware";
 import cors from "cors";
-
+// import {Server} from 'socket.io';
 const app = express();
+// const httpServer=createServer(app);
+// const io = new Server(httpServer, {
+//     cors: {
+//       origin: "https://second-brain-frontend-two.vercel.app", // Your frontend URL
+//       methods: ['GET', 'POST']
+//     }
+//   });
 app.use(express.json()); // Middleware to parse JSON request bodies.
 app.use(cors({
-    origin:"https://second-brain-frontend-two.vercel.app"
+    origin: ["http://localhost:5173", "https://second-brain-frontend-two.vercel.app"],
+    credentials: true
 })); // Middleware to allow cross-origin requests.
+app.options("*", cors()); // Handle all preflight requests
 
 // Route 1: User Signup
 app.post("/api/v1/signup", async (req, res) => {
